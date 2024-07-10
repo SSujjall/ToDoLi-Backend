@@ -231,9 +231,15 @@ namespace Todo.Infrastructure.Migrations
 
             modelBuilder.Entity("Todo.Domain.Entities.TodoItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("TodoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CompletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -246,7 +252,13 @@ namespace Todo.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TodoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TodoItems");
                 });
@@ -307,6 +319,17 @@ namespace Todo.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Todo.Domain.Entities.TodoItem", b =>
+                {
+                    b.HasOne("Todo.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
