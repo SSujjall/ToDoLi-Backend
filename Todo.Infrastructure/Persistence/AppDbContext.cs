@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,14 @@ namespace Todo.Infrastructure.Context
             
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
         public DbSet<User> Users { get; set; }
-        public DbSet<TodoItem> TodoItems { get; set; }
-    }
+        public DbSet<List> Lists { get; set; }
+        public DbSet<Domain.Entities.Task> Tasks { get; set; }
+        public DbSet<SubTask> SubTasks { get; set; }
+    }   
 }

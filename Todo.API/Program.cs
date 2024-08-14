@@ -1,17 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using Todo.Infrastructure.Context;
+using Todo.Infrastructure.DI;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
+
+const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddInfrastructure(configuration);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TodoDB")));
+
+
+
+
 
 var app = builder.Build();
 

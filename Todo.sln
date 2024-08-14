@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoWeb", "TodoWeb\TodoWeb.csproj", "{362035A5-BC91-4545-B18A-67919792CB98}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.API", "Todo.API\Todo.API.csproj", "{184A50B1-0631-4238-906D-64F0C44B7722}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Domain", "Todo.Domain\Todo.Domain.csproj", "{2B6FA7E3-1337-497E-A7C1-D316C05AD34B}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{362035A5-BC91-4545-B18A-67919792CB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{362035A5-BC91-4545-B18A-67919792CB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{362035A5-BC91-4545-B18A-67919792CB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{362035A5-BC91-4545-B18A-67919792CB98}.Release|Any CPU.Build.0 = Release|Any CPU
 		{184A50B1-0631-4238-906D-64F0C44B7722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{184A50B1-0631-4238-906D-64F0C44B7722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{184A50B1-0631-4238-906D-64F0C44B7722}.Release|Any CPU.ActiveCfg = Release|Any CPU
