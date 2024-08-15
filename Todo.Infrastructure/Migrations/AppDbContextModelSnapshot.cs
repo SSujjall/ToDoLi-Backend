@@ -283,7 +283,7 @@ namespace Todo.Infrastructure.Migrations
                     b.ToTable("SubTasks");
                 });
 
-            modelBuilder.Entity("Todo.Domain.Entities.Task", b =>
+            modelBuilder.Entity("Todo.Domain.Entities.Tasks", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -392,7 +392,7 @@ namespace Todo.Infrastructure.Migrations
 
             modelBuilder.Entity("Todo.Domain.Entities.SubTask", b =>
                 {
-                    b.HasOne("Todo.Domain.Entities.Task", "Task")
+                    b.HasOne("Todo.Domain.Entities.Tasks", "Task")
                         .WithMany()
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,7 +401,7 @@ namespace Todo.Infrastructure.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("Todo.Domain.Entities.Task", b =>
+            modelBuilder.Entity("Todo.Domain.Entities.Tasks", b =>
                 {
                     b.HasOne("Todo.Domain.Entities.List", "List")
                         .WithMany()

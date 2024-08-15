@@ -15,7 +15,7 @@ namespace Todo.Domain.Entities
         public int TaskId { get; set; }
 
         [ForeignKey(nameof(TaskId))]
-        public virtual Task Task { get; set; }
+        public virtual Tasks Task { get; set; }
 
         public string SubTaskName { get; set; } = string.Empty;
         public bool IsComplete { get; set; } = false;

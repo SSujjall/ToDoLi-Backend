@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Todo.Domain.Entities
 {
-    public class Task
+    public class Tasks
     {
         [Key]
         public int Id { get; set; }
