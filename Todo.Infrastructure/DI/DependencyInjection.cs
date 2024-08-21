@@ -34,6 +34,7 @@ namespace Todo.Infrastructure.DI
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
+                options.Lockout.MaxFailedAccessAttempts = 5;
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();

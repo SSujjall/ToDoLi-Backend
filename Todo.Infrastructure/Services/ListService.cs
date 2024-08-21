@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Todo.Application.DTOs;
 using Todo.Application.Interface.IRepositories;
 using Todo.Application.Interface.IServices;
@@ -10,29 +11,74 @@ namespace Todo.Infrastructure.Services
     {
         private readonly IListRepository _listRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ListService(IListRepository listRepository, UserManager<User> userManager)
+        public ListService(IListRepository listRepository, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _listRepository = listRepository;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<string> AddList(AddListDTO addListDto, List<string> errors)
+        public async Task<string> AddList(AddListDTO addListDto, List<string> errors, string currentUserId)
+        {
+            try
+            {
+                var newList = new List
+                {
+                    ListName = addListDto.ListName,
+                    UserId = currentUserId 
+                };
+
+                await _listRepository.Add(newList);
+                await _listRepository.SaveChangesAsync();
+                return "List successfully added.";
+            }
+            catch (Exception ex)
+            {
+                errors.Add("Failed To Add List as user Not Logged In");
+                return "Failed to add list.";
+            }
+        }
+
+        public async Task<string> DeleteList(int id, List<string> errors, string currentUserId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> DeleteList(int id, List<string> errors)
+        public async Task<List<ListDTO>> GetAll(string currentUserId)
         {
-            throw new NotImplementedException();
+            var lists = await _listRepository.GetAll(null);
+            var filteredLists = lists.Where(list => list.UserId == currentUserId);
+
+            //Yo ra tala gareko same ho
+            var listDto = filteredLists.Select(list => new ListDTO
+            {
+                Id = list.Id,
+                ListName = list.ListName,
+                UserId = list.UserId,
+                CreatedAt = list.CreatedAt
+            }).ToList();
+
+            //var listDto = new List<ListDTO>();
+
+            //foreach (var item in filteredLists)
+            //{
+            //    var items = new ListDTO
+            //    {
+            //        Id = item.Id,
+            //        ListName = item.ListName,
+            //        UserId = item.UserId,
+            //        IsMine = true, // Since we filtered, all lists are owned by the current user
+            //        CreatedAt = item.CreatedAt
+            //    };
+            //    listDto.Add(items);
+            //}
+
+            return listDto;
         }
 
-        public Task<List<ListDTO>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> UpdateList(UpdateListDTO updateListDto, List<string> errors)
+        public async Task<string> UpdateList(UpdateListDTO updateListDto, List<string> errors, string currentUserId)
         {
             throw new NotImplementedException();
         }

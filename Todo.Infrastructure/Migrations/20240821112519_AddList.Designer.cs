@@ -12,8 +12,8 @@ using Todo.Infrastructure.Context;
 namespace Todo.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240815072825_Initial")]
-    partial class Initial
+    [Migration("20240821112519_AddList")]
+    partial class AddList
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -327,6 +327,14 @@ namespace Todo.Infrastructure.Migrations
             modelBuilder.Entity("Todo.Domain.Entities.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
                 });

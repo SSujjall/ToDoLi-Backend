@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,34 +19,67 @@ namespace Todo.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task<T> Add(T entity)
+        public async Task<T> Add(T entity)
         {
-            throw new NotImplementedException();
+            var addedEntity = (await _context.AddAsync(entity)).Entity;
+            _context.SaveChanges();
+            return addedEntity;
         }
 
-        public Task Delete(T entity)
+        public async Task Delete(T entity)
         {
-            throw new NotImplementedException();
+            if (entity != null)
+            {
+                _context.Remove(entity); // Remove the entity
+                await _context.SaveChangesAsync(); // Commit asynchronously
+            }
         }
 
-        public Task<IEnumerable<T>> GetAll(GetRequest<T>? request)
+        public async Task<IEnumerable<T>> GetAll(GetRequest<T>? request)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>();
+
+            if (request != null)
+            {
+                if (request.Filter != null)
+                {
+                    query = query.Where(request.Filter);
+                }
+
+                if (request.OrderBy != null)
+                {
+                    query = request.OrderBy(query);
+                }
+
+                if (request.Skip.HasValue)
+                {
+                    query = query.Skip(request.Skip.Value);
+                }
+
+                if (request.Take.HasValue)
+                {
+                    query = query.Take(request.Take.Value);
+                }
+            }
+
+            return await query.ToListAsync(); // Use asynchronous database operations
         }
 
-        public Task<T>? GetById(object entityId)
+        public async Task<T>? GetById(object entityId)
         {
-            throw new NotImplementedException();
+            return await _context.FindAsync<T>(entityId);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task<T> Update(T entity)
+        public async Task<T> Update(T entity)
         {
-            throw new NotImplementedException();
+            var updatedEntity = _context.Update(entity).Entity;
+            await _context.SaveChangesAsync();
+            return updatedEntity;
         }
     }
 }

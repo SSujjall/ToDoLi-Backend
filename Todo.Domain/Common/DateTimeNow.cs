@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Todo.Domain.Common
 {
-    public class BaseEntity
+    public static class DateTimeNow
     {
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public static DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }
