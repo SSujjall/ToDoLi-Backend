@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Todo.Application.DTOs;
 using Todo.Application.Interface.IRepositories;
 using Todo.Application.Interface.IServices;
@@ -43,7 +44,26 @@ namespace Todo.Infrastructure.Services
 
         public async Task<string> DeleteList(int id, List<string> errors, string currentUserId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _listRepository.GetById(id);
+
+                if (list == null || list.UserId != currentUserId)
+                {
+                    errors.Add("List not found or you don't have permission to delete this list.");
+                    return "Failed to delete list.";
+                }
+
+                await _listRepository.Delete(list);
+                await _listRepository.SaveChangesAsync();
+
+                return "List successfully deleted.";
+            }
+            catch (Exception ex)
+            {
+                errors.Add("Failed to delete list due to an error.");
+                return "Failed to delete list.";
+            }
         }
 
         public async Task<List<ListDTO>> GetAll(string currentUserId)
@@ -80,7 +100,28 @@ namespace Todo.Infrastructure.Services
 
         public async Task<string> UpdateList(UpdateListDTO updateListDto, List<string> errors, string currentUserId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _listRepository.GetById(updateListDto.Id);
+
+                if (list == null || list.UserId != currentUserId)
+                {
+                    errors.Add("List not found or you don't have permission to update this list.");
+                    return "Failed to update list.";
+                }
+
+                list.ListName = updateListDto.ListName;
+
+                await _listRepository.Update(list);
+                await _listRepository.SaveChangesAsync();
+
+                return "List successfully updated.";
+            }
+            catch (Exception e)
+            {
+                errors.Add("Failed to update list due to an error.");
+                return "Failed to update list.";
+            }
         }
     }
 }

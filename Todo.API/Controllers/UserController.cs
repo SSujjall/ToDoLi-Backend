@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Security.Claims;
 using Todo.Application.DTOs;
 using Todo.Application.Interface.IServices;
 using Todo.Domain.Entities;
@@ -65,8 +66,8 @@ namespace Todo.API.Controllers
 
             try
             {
-                var userId = User.FindFirst("userId")?.Value;
-                
+                var userId = User.FindFirstValue("userId");
+
                 if (string.IsNullOrEmpty(userId))
                 {
                     return BadRequest("User ID could not be found.");
