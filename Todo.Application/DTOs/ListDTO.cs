@@ -15,7 +15,7 @@ namespace Todo.Application.DTOs
         public int Id { get; set; }
         public string ListName { get; set; }
         public string UserId { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTimeNow.CreatedDate;
+        public DateTime CreatedAt { get; set; } = MyDateTime.CreatedDate;
     }
 
     public class AddListDTO

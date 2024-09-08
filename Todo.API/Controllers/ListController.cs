@@ -9,6 +9,7 @@ using Todo.Application.Interface.IServices;
 
 namespace Todo.API.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ListController : ControllerBase
@@ -20,7 +21,6 @@ namespace Todo.API.Controllers
             _listService = listService;
         }
 
-        [Authorize]
         [HttpGet("GetAllList")]
         public async Task<IActionResult> GetAll()
         {
@@ -40,7 +40,6 @@ namespace Todo.API.Controllers
             return Ok(new Response(lists, null, HttpStatusCode.OK));
         }
 
-        [Authorize]
         [HttpPost("AddList")]
         public async Task<IActionResult> AddList([FromBody] AddListDTO addListDto)
         {
@@ -62,7 +61,6 @@ namespace Todo.API.Controllers
             return Ok(new { message = result });
         }
 
-        [Authorize]
         [HttpPut("UpdateList")]
         public async Task<IActionResult> UpdateList([FromBody] UpdateListDTO updateListDto)
         {
@@ -85,7 +83,6 @@ namespace Todo.API.Controllers
             return Ok(new Response(new { message = result }, null, HttpStatusCode.OK));
         }
 
-        [Authorize]
         [HttpDelete("DeleteList/{id}")]
         public async Task<IActionResult> DeleteList(int id)
         {

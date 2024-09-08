@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Todo.Domain.Common
 {
-    public static class DateTimeNow
+    public static class MyDateTime
     {
         public static DateTime CreatedDate { get; set; } = DateTime.Now;
     }

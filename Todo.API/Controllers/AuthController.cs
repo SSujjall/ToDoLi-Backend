@@ -9,6 +9,8 @@ using Todo.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.ExceptionServices;
 
 
 namespace Todo.API.Controllers
@@ -24,6 +26,13 @@ namespace Todo.API.Controllers
         {
             _userManager = userManager;
             _configuration = configuration1;
+        }
+
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllAvailableUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(new Response(users, null, HttpStatusCode.OK));
         }
 
         [HttpPost("Login")]
@@ -95,7 +104,7 @@ namespace Todo.API.Controllers
 
             var createUser = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if(!createUser.Succeeded)
+            if (!createUser.Succeeded)
             {
                 return BadRequest(new Response(null, new List<string> { "Failed to create user." }, HttpStatusCode.BadRequest));
             }

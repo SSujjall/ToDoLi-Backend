@@ -9,5 +9,6 @@ namespace Todo.Application.Interface.IRepositories
 {
     public interface ITasksRepository : IBaseRepository<Tasks>
     {
+
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Todo.Domain.Common;
 
 namespace Todo.Domain.Entities
 {
@@ -21,7 +22,7 @@ namespace Todo.Domain.Entities
         public string Description { get; set; }
         public DateTime? DueDate { get; set; } = null;
         public bool IsComplete { get; set; }
-        public DateTime? CreatedAt { get; set; } = null;
+        public DateTime? CreatedAt { get; set; } = MyDateTime.CreatedDate;
         public DateTime? UpdatedAt { get; set; } = null;
     }
 }

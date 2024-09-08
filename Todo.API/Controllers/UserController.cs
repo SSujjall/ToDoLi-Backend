@@ -13,6 +13,7 @@ using Todo.Domain.Entities;
 
 namespace Todo.API.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -26,7 +27,6 @@ namespace Todo.API.Controllers
             _userManager = userManager;
         }
 
-        [Authorize]
         [HttpPut("Update-Password")]
         public async Task<IActionResult> UpdateUserPassword(UpdatePasswordDTO updatePasswordDto)
         {
@@ -58,7 +58,6 @@ namespace Todo.API.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut("Update-Details")]
         public async Task<IActionResult> UpdateUserDetail(UpdateUserDTO updateUserDto)
         {
@@ -90,7 +89,6 @@ namespace Todo.API.Controllers
             }
         }
 
-        [Authorize]
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteUser()
         {
