@@ -13,7 +13,7 @@ using Todo.Domain.Entities;
 
 namespace Todo.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

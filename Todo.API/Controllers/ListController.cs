@@ -9,7 +9,7 @@ using Todo.Application.Interface.IServices;
 
 namespace Todo.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ListController : ControllerBase
