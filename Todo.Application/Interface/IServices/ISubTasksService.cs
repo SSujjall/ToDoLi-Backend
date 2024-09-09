@@ -10,6 +10,7 @@ namespace Todo.Application.Interface.IServices
     public interface ISubTasksService
     {
         public Task<List<SubTaskDTO>> GetAllSubTasks(int taskId);
+        public Task<SubTaskDTO> GetSubtaskById (int id);
         public Task<string> AddSubTask(AddSubTaskDTO addSubTaskDto);
         public Task<string> UpdateSubTask(UpdateSubTaskDTO updateSubTaskDto);
         public Task<string> DeleteSubTask(int id);

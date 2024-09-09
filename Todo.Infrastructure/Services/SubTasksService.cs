@@ -14,6 +14,21 @@ namespace Todo.Infrastructure.Services
             _subTasksRepository = subTasksRepository;
         }
 
+        public async Task<SubTaskDTO> GetSubtaskById(int id)
+        {
+            var subTask = await _subTasksRepository.GetById(id);
+            if (subTask == null) return null;
+
+            return new SubTaskDTO
+            {
+                Id = subTask.Id,
+                TaskId = subTask.TaskId,
+                SubTaskName = subTask.SubTaskName,
+                IsComplete = subTask.IsComplete,
+                CreatedAt = subTask.CreatedAt
+            };
+        }
+
         public async Task<List<SubTaskDTO>> GetAllSubTasks(int taskId)
         {
             var subTasks = await _subTasksRepository.GetAll(null);

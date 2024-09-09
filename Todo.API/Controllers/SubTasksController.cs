@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Todo.Application.DTOs;
+using Todo.Application.Helpers;
 using Todo.Application.Interface.IServices;
 
 namespace Todo.API.Controllers
@@ -28,7 +30,18 @@ namespace Todo.API.Controllers
                 return NotFound(new { message = "No SubTasks found for this task." });
             }
 
-            return Ok(subTasks);
+            return Ok(new Response(subTasks, null, HttpStatusCode.OK));
+        }
+
+        [HttpGet("GetSubtaskById/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var subTask = await _subTasksService.GetSubtaskById(id);
+            if (subTask == null)
+            {
+                return NotFound(new Response(null, new List<string> { "SubTask not found." }, HttpStatusCode.NotFound));
+            }
+            return Ok(new Response(subTask, null, HttpStatusCode.OK));
         }
 
         [HttpPost("AddSubTask")]
