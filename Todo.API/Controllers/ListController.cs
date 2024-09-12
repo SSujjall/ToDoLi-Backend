@@ -24,6 +24,7 @@ namespace Todo.API.Controllers
         [HttpGet("GetAllList")]
         public async Task<IActionResult> GetAll()
         {
+            //claims bata user ko id nikalne
             var currentUserId = User.FindFirstValue("userId");
 
             if(string.IsNullOrEmpty(currentUserId))
