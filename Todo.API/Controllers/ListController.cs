@@ -36,7 +36,7 @@ namespace Todo.API.Controllers
 
             if(lists == null || !lists.Any())
             {
-                return NotFound(new { message = "No List Found For This User." });
+                return BadRequest(new { message = "No List Found For This User." });
             }
             return Ok(new Response(lists, null, HttpStatusCode.OK));
         }

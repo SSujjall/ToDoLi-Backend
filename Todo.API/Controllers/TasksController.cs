@@ -52,6 +52,11 @@ namespace Todo.API.Controllers
         [HttpPost("AddTask")]
         public async Task<IActionResult> AddTask([FromBody] AddTaskDTO addTaskDto)
         {
+            if (addTaskDto == null)
+            {
+                return BadRequest(new { message = "Invalid Model for adding task." });
+            }
+
             var errors = new List<string>();
 
             var result = await _taskService.AddTask(addTaskDto, errors);
