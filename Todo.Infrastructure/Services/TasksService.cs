@@ -54,7 +54,7 @@ namespace Todo.Infrastructure.Services
             };
         }
 
-        public async Task<string> AddTask(AddTaskDTO addTaskDto, List<string> errors)
+        public async Task<(string message, int? taskId)> AddTask(AddTaskDTO addTaskDto, List<string> errors)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Todo.Infrastructure.Services
                 if (list == null)
                 {
                     errors.Add("Invalid list ID.");
-                    return "Failed to add task.";
+                    return ("Failed to add task.", null);
                 }
 
                 var newTask = new Tasks
@@ -76,12 +76,12 @@ namespace Todo.Infrastructure.Services
 
                 await _tasksRepository.Add(newTask);
                 await _tasksRepository.SaveChangesAsync();
-                return "Task successfully added.";
+                return ("Task successfully added.", newTask.Id);
             }
             catch (Exception ex)
             {
                 errors.Add("Failed to add task due to an error.");
-                return "Failed to add task.";
+                return ("Failed to add task.", null);
             }
         }
 

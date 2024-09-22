@@ -11,7 +11,7 @@ namespace Todo.Application.Interface.IServices
     {
         Task<List<TaskDTO>> GetAll(int listId);
         Task<TaskDTO?> GetById(int taskId);
-        Task<string> AddTask(AddTaskDTO addTaskDto, List<string> errors);
+        Task<(string message, int? taskId)> AddTask(AddTaskDTO addTaskDto, List<string> errors);
         Task<string> UpdateTask(UpdateTaskDTO updateTaskDto, List<string> errors);
         Task<string> DeleteTask(int taskId, List<string> errors);
     }

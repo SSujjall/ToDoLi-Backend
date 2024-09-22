@@ -59,14 +59,14 @@ namespace Todo.API.Controllers
 
             var errors = new List<string>();
 
-            var result = await _taskService.AddTask(addTaskDto, errors);
+            var (result, taskId) = await _taskService.AddTask(addTaskDto, errors);
 
             if (errors.Any())
             {
                 return BadRequest(new Response(null, errors, HttpStatusCode.BadRequest));
             }
 
-            return Ok(new { message = result });
+            return Ok(new { message = result, TaskId = taskId });
         }
 
         [HttpPut("UpdateTask")]
